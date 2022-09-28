@@ -59,4 +59,45 @@ if __name__ == "__main__":
 # Інакше повідомити про помилку
 else:
     print("[ERR] Sorry, it can't be used like a module")
+    
+    
+# Початок коду!
+import random
+import string
+import pandas as pd
+phrase = ""
+length = 50
+i = 0
+#Input language
+print('Input "rus" only in small letters')
+lang = input("Enter language")
+#ENG
+if lang == 'Eng' or 'eng' or 'ENG' :
+    for i in range(0, 40):
+        letters_and_digits = string.ascii_letters + string.digits
+        time = ''.join(random.sample(letters_and_digits, length))
+        phrase += time
+        i += 1
 
+#UKR
+if lang == 'Ukr' or 'ukr' or 'UKR':
+    f = open('ukr.txt', 'r')
+
+#rus
+if lang == 'rus':
+    f = open('rus.txt', 'r')
+
+#Character count
+quantity = {'Symbols': 0, 'Letters': 0, 'Numbers': 0}
+for i in phrase:
+    if i.isalpha():
+        quantity['Letters'] += 1
+    elif i.isdigit():
+        quantity['Numbers'] += 1
+    else:
+        quantity['Symbols'] += 1
+Total = quantity['Numbers'] + quantity['Letters'] + quantity['Symbols']
+#Output
+print(pd.Series(list(phrase)).value_counts())
+print('Numbers: %d, Letters: %d, Symbols: %d' % ( quantity['Numbers'], quantity['Letters'], quantity['Symbols']))
+print('Total: %d' % Total)
