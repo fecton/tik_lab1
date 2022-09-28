@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+from pprint import pprint
+
 # TODO:
 """
 Варіанти:
@@ -137,14 +139,24 @@ def main():
                 print(GERMAN_TEXT, end="\n"*3)
             case 2:
                 arr = alphabet_symbol_count()
-                symbol = input("СИМВОЛ: ")
+                symbol = input("СИМВОЛ (скіп, якщо хочеш побачити усю кількість символів): ")
 
-                names = ["німецькому", "українському", "англійському"]
-                for i in range(3):
-                    try:
-                        print(f"У {names[i]} тексті символ '{symbol}' наявний {arr[i][symbol]} разів")
-                    except KeyError:
-                        print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
+                if symbol:
+                    names = ["англійському", "українському", "німецькому"]
+                    for i in range(3):
+                        try:
+                            print(f"У {names[i]} тексті символ '{symbol}' наявний {arr[i][symbol]} разів")
+                        except KeyError:
+                            print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
+                else:
+                    print("[+] Англійському: ")
+                    pprint(arr[0])
+
+                    print("[+] Українському: ")
+                    pprint(arr[1])
+
+                    print("[+] Німецькому: ")
+                    pprint(arr[2])
 
             case 3:
                 text_sizes()
