@@ -1,36 +1,7 @@
 #!/usr/bin/python3
 
 from pprint import pprint
-
-# TODO:
-"""
-Варіанти:
-                укр     рус      англ
-    Варіант 1:  +       +(той же) +(той же)
-    (зв'язаний)
-
-    Варіант 3:  +       +(рівний по сим) +(рів по сим)
-    (не зв'яз)
-
-Варіант по номеру команди: 3
-Середня кількість слів тексту: 2.000
-Варіанти задач: 1,3
-
-
-1. Розробити проект для дослідження кількості інформації та ентропії
-дискретного джерела повідомлень відповідно до варіанта.
-
-2. Проект повинен дозволяти:
-- визначати кількість інформації в тексті українською, англійською та
-німецькою мовами, а також:
-- вводити текст повідомлення;
-- здійснювати підрахунок частоти появи символу в тексті
-повідомлення;
-- упорядковувати частоту за зростанням будь-яким алгоритмом
-сортування;
-- Виводити на екран символ тексту та частоту його появи.
-- Виводити кількість інформації у тексті.
-"""
+from math import log
 
 
 # Тексти
@@ -92,10 +63,16 @@ Im Frühjahr 1846 kam er in Kiew an. Im April trat er der Cyril and Methodius Br
 Verhaftet am 5. April 1847.
 """
 
+
 # Алфавіти
 ENGLISH_ALPHABET = "abcdefghiklmnopqrstvxyz"
 UKRAINIAN_ALPHABET = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"
 GERMAN_ALPHABET = "abcdefghijklmnopqrstuvwxyzäöüß"
+
+# Потужність алфавіту:w
+ENG_PWR     = 23
+UKR_PWR     = 33
+GER_PWR  = 30
 
 
 # Задання кількості символів за трьома різними мовами
@@ -116,6 +93,7 @@ def alphabet_symbol_count() -> list:
 
 # Основна функція
 def main():
+    CUSTOM_TEXT = ""
     op = 0
     while 1:
         match op:
@@ -171,14 +149,19 @@ def main():
                     pprint(arr)
 
             case 3:
-                print("--= Розмірність у UTF-8 =---")
+                print("--= Розмірність у бітах =---")
 
                 if not CUSTOM_TEXT:
-                    print("[+] УКРАЇНСЬКИЙ ТЕКСТ:\t", len(UKRAINIAN_TEXT), f" символів ({len(UKRAINIAN_TEXT)*8} байтів)")
-                    print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", len(ENGLISH_TEXT), f" символів ({len(ENGLISH_TEXT)*8} байтів)")
-                    print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", len(GERMAN_TEXT), f" символів ({len(GERMAN_TEXT)*8} байтів)")
+
+                    ukr = len(UKRAINIAN_TEXT) * log(UKR_PWR,2) / 1024
+                    eng = len(ENGLISH_TEXT) * log(ENG_PWR,2) / 1024
+                    ger = len(GERMAN_TEXT) * log(GER_PWR,2) / 1024
+
+                    print("[+] УКРАЇНСЬКИЙ ТЕКСТ:\t", ukr, "МБ")
+                    print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", eng, "МБ")
+                    print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", ger, "МБ")
                 else:
-                    print("[+] Кастомний текст: ", len(CUSTOM_TEXT), f" символів ({len(CUSTOM_TEXT)*8}) байтів")
+                    print("[+] Кастомний текст: ", len(CUSTOM_TEXT) * log(ENG_PWR, 2))
             case 4:
                 CUSTOM_TEXT = input("Enter: ")
 
