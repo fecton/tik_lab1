@@ -33,6 +33,7 @@ from pprint import pprint
 """
 
 
+# Тексти
 UKRAINIAN_TEXT = """
 Тарас Шевченко біографія 
 Народився 9 березня 1814 року у селі Моринці Звенигородського повіту Київської губернії в закріпаченій селянській родині. Рано став сиротою — мати померла, коли йому було 9 років, батько — у 11 років. Його доглядала сестра Катерина.
@@ -91,19 +92,13 @@ Im Frühjahr 1846 kam er in Kiew an. Im April trat er der Cyril and Methodius Br
 Verhaftet am 5. April 1847.
 """
 
+# Алфавіти
 ENGLISH_ALPHABET = "abcdefghiklmnopqrstvxyz"
 UKRAINIAN_ALPHABET = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"
 GERMAN_ALPHABET = "abcdefghijklmnopqrstuvwxyzäöüß"
 
 
-def text_sizes():
-    print("--= Розмірність у UTF-8 =---")
-
-    print("[+] УКРАЇНСЬКИЙ ТЕКСТ:\t", len(UKRAINIAN_TEXT), f" символів ({len(UKRAINIAN_TEXT)*8} байтів)")
-    print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", len(ENGLISH_TEXT), f" символів ({len(ENGLISH_TEXT)*8} байтів)")
-    print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", len(GERMAN_TEXT), f" символів ({len(GERMAN_TEXT)*8} байтів)")
-
-
+# Задання кількості символів за трьома різними мовами
 def alphabet_symbol_count() -> list:
     german, ukraine, english = {}, {}, {}
 
@@ -112,12 +107,14 @@ def alphabet_symbol_count() -> list:
     i = 0
     for text, alphabet in [(ENGLISH_TEXT, ENGLISH_ALPHABET), (UKRAINIAN_TEXT, UKRAINIAN_ALPHABET), (GERMAN_TEXT, GERMAN_ALPHABET)]:
         for symbol in alphabet:
-            arr[i][symbol] = text.count(symbol)
+            if text.count(symbol) > 0:
+                arr[i][symbol] = text.count(symbol)
         i+=1
             
     return arr
 
 
+# Основна функція
 def main():
     op = 0
     while 1:
@@ -127,7 +124,9 @@ def main():
 0. Показати це меню
 1. Вивести текстів
 2. Частота якогось символу
-3. Розмір текстів""")
+3. Розмір текстів
+4. Ввести свій текст (англ)
+""")
             case 1:
                 print("УКРАЇНСЬКИЙ ТЕКСТ")
                 print(UKRAINIAN_TEXT, end="\n"*3)
@@ -138,28 +137,51 @@ def main():
                 print("НІМЕЦЬКИЙ ТЕКСТ")
                 print(GERMAN_TEXT, end="\n"*3)
             case 2:
-                arr = alphabet_symbol_count()
-                symbol = input("СИМВОЛ (скіп, якщо хочеш побачити усю кількість символів): ")
-
-                if symbol:
-                    names = ["англійському", "українському", "німецькому"]
+                if not CUSTOM_TEXT:
+                    arr = alphabet_symbol_count()
+                    
                     for i in range(3):
-                        try:
-                            print(f"У {names[i]} тексті символ '{symbol}' наявний {arr[i][symbol]} разів")
-                        except KeyError:
-                            print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
+                        arr[i] = {k: v for k, v in sorted(arr[i].items(), key=lambda x: x[1], reverse=True)}
+
+                    symbol = input("СИМВОЛ (скіп, якщо хочеш побачити усю кількість символів): ")
+
+                    if symbol:
+                        names = ["англійському", "українському", "німецькому"]
+                        for i in range(3):
+                            try:
+                                print(f"У {names[i]} тексті символ '{symbol}' наявний {arr[i][symbol]} разів")
+                            except KeyError:
+                                print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
+                    else:
+                        print("[+] Англійському: ")
+                        pprint(arr[0])
+
+                        print("[+] Українському: ")
+                        pprint(arr[1])
+
+                        print("[+] Німецькому: ")
+                        pprint(arr[2])
                 else:
-                    print("[+] Англійському: ")
-                    pprint(arr[0])
-
-                    print("[+] Українському: ")
-                    pprint(arr[1])
-
-                    print("[+] Німецькому: ")
-                    pprint(arr[2])
+                    print("[+] Кастомному: ")
+                    arr = {}
+                    for symbol in ENGLISH_ALPHABET:
+                        if CUSTOM_TEXT.count(symbol) > 0:
+                            arr[symbol] = CUSTOM_TEXT.count(symbol)
+                    arr = {k: v for k, v in sorted(arr.items(), key=lambda x: x[1], reverse=True)}
+                    pprint(arr)
 
             case 3:
-                text_sizes()
+                print("--= Розмірність у UTF-8 =---")
+
+                if not CUSTOM_TEXT:
+                    print("[+] УКРАЇНСЬКИЙ ТЕКСТ:\t", len(UKRAINIAN_TEXT), f" символів ({len(UKRAINIAN_TEXT)*8} байтів)")
+                    print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", len(ENGLISH_TEXT), f" символів ({len(ENGLISH_TEXT)*8} байтів)")
+                    print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", len(GERMAN_TEXT), f" символів ({len(GERMAN_TEXT)*8} байтів)")
+                else:
+                    print("[+] Кастомний текст: ", len(CUSTOM_TEXT), f" символів ({len(CUSTOM_TEXT)*8}) байтів")
+            case 4:
+                CUSTOM_TEXT = input("Enter: ")
+
         op = int(input(">> "))
 
 
