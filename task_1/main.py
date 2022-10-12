@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-from email.policy import default
-from pprint import pprint
 from math import log
 
 # Тексти
@@ -97,40 +95,36 @@ def main():
                 if not CUSTOM_TEXT:
                     arr = alphabet_symbol_count()
                     
+                    # Відсортувати кожний словник
                     for i in range(6):
                         arr[i] = {k: v for k, v in sorted(arr[i].items(), key=lambda x: x[1], reverse=False)}
 
                     symbol = input("СИМВОЛ (скіп, якщо хочеш побачити усю кількість символів): ")
 
+                    textes = [ENGLISH_TEXT, UKRAINIAN_TEXT, GERMAN_TEXT, INCOHERENT_ENG, INCOHERENT_UKR, INCOHERENT_GER]
+                    names = ["англійському", "українському", "німецькому"] * 2
+
                     if symbol:
-                        names = ["англійському", "українському", "німецькому"] * 2
                         for i in range(6):
                             if i % 3 == 0 and i != 0:
                                 print("Не зв'язані тексти")
                             elif i == 0:
                                 print("Зв'язані тексти")
                             try:
-                                print(f"У {names[i]} тексті символ '{symbol}' наявний {arr[i][symbol]} разів")
+                                print(f"У {names[i]} тексті символ '{symbol}' з частотою {arr[i][symbol] / len(textes[i])}")
                             except KeyError:
                                 print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
                     else:
-                        print("[+] Англійському: ")
-                        print(arr[0])
-
-                        print("[+] Українському: ")
-                        print(arr[1])
-
-                        print("[+] Німецькому: ")
-                        print(arr[2])
-
-                        print("[+] Англійська (не зв'язана): ")
-                        print(arr[3])
-
-                        print("[+] Українська (не зв'язана): ")
-                        print(arr[4])
-
-                        print("[+] Німецька: (не зв'язана): ")
-                        print(arr[5])
+                        for i in range(6):
+                            print(f"[+] {names[i].title()}", end="")
+                            if i > 2:
+                                print(" (не зв'язана): ")
+                            else:
+                                print(": ") 
+                        
+                            for k,v in arr[i].items():
+                                print(f"{k} : {v / len(textes[i])}")
+                            print(end="\n"*2)
                 else:
                     print("[+] Кастомному: ")
                     arr = {}
@@ -150,7 +144,7 @@ def main():
                         if CUSTOM_TEXT.count(symbol) > 0:
                             arr[symbol] = CUSTOM_TEXT.count(symbol)
                     arr = {k: v for k, v in sorted(arr.items(), key=lambda x: x[1])}
-                    pprint(arr)
+                    print(arr)
 
             # Виведення розмірність тексту
             case 3:
