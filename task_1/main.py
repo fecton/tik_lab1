@@ -28,9 +28,8 @@ GER_PWR  = 30
 
 # Задання кількості символів за трьома різними мовами двох текстів
 def alphabet_symbol_count() -> list:
-    german, ukraine, english = {}, {}, {}
 
-    arr = [english, ukraine, german]*2
+    arr = [{},{},{},{},{},{}]
     mass = [
         (ENGLISH_TEXT, ENGLISH_ALPHABET), 
         (UKRAINIAN_TEXT, UKRAINIAN_ALPHABET), 
@@ -47,7 +46,7 @@ def alphabet_symbol_count() -> list:
             if text.count(symbol) > 0:
                 arr[i][symbol] = text.count(symbol)
         i+=1
-            
+
     return arr
 
 
@@ -94,7 +93,7 @@ def main():
             case 2:
                 if not CUSTOM_TEXT:
                     arr = alphabet_symbol_count()
-                    
+
                     # Відсортувати кожний словник
                     for i in range(6):
                         arr[i] = {k: v for k, v in sorted(arr[i].items(), key=lambda x: x[1], reverse=False)}
@@ -123,6 +122,7 @@ def main():
                                 print(": ") 
                         
                             for k,v in arr[i].items():
+                                print(v, len(textes[i]))
                                 print(f"{k} : {v / len(textes[i])}")
                             print(end="\n"*2)
                 else:
