@@ -42,6 +42,7 @@ def alphabet_symbol_count() -> list:
 
     i = 0
     for text, alphabet in mass:
+        text = text.lower()
         for symbol in alphabet:
             if text.count(symbol) > 0:
                 arr[i][symbol] = text.count(symbol)
