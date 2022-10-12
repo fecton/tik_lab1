@@ -17,9 +17,10 @@ INCOHERENT_UKR = getc("in_ukrainian")
 INCOHERENT_GER = getc("in_german")
 
 # Алфавіти
-ENGLISH_ALPHABET = "abcdefghiklmnopqrstvxyz"
+ENGLISH_ALPHABET = "qwertyuiopasdfghjklzxcvbnm"
 UKRAINIAN_ALPHABET = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"
 GERMAN_ALPHABET = "abcdefghijklmnopqrstuvwxyzäöüß"
+
 
 # Потужність алфавіту
 ENG_PWR     = 23
@@ -122,8 +123,9 @@ def main():
                             else:
                                 print(": ") 
                         
+                            print(len(arr[i].keys()))
                             for k,v in arr[i].items():
-                                print(v, len(textes[i]))
+                                # print(v, len(textes[i]))
                                 print(f"{k} : {v / len(textes[i])}")
                             print(end="\n"*2)
                 else:
