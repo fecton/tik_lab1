@@ -1,13 +1,15 @@
 #!/usr/bin/python3
 
-from email.policy import default
-from pprint import pprint
 from math import log
 
 # Тексти
 # Функція, що повертає текст з файлів
 def getc(filename: str) -> str:
     return open(filename+".txt", encoding="utf-8").read()
+
+# Повертає розмірність строки без пробілів
+def llen(text:str) -> int:
+    return len(text.replace(" ", ""))
 
 # Дістаємо текст з файлів
 UKRAINIAN_TEXT = getc("ukrainian")
@@ -19,9 +21,10 @@ INCOHERENT_UKR = getc("in_ukrainian")
 INCOHERENT_GER = getc("in_german")
 
 # Алфавіти
-ENGLISH_ALPHABET = "abcdefghiklmnopqrstvxyz"
+ENGLISH_ALPHABET = "qwertyuiopasdfghjklzxcvbnm"
 UKRAINIAN_ALPHABET = "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя"
 GERMAN_ALPHABET = "abcdefghijklmnopqrstuvwxyzäöüß"
+
 
 # Потужність алфавіту
 ENG_PWR     = 23
@@ -30,9 +33,8 @@ GER_PWR  = 30
 
 # Задання кількості символів за трьома різними мовами двох текстів
 def alphabet_symbol_count() -> list:
-    german, ukraine, english = {}, {}, {}
 
-    arr = [english, ukraine, german]*2
+    arr = [{},{},{},{},{},{}]
     mass = [
         (ENGLISH_TEXT, ENGLISH_ALPHABET), 
         (UKRAINIAN_TEXT, UKRAINIAN_ALPHABET), 
@@ -45,11 +47,12 @@ def alphabet_symbol_count() -> list:
 
     i = 0
     for text, alphabet in mass:
+        text = text.lower()
         for symbol in alphabet:
             if text.count(symbol) > 0:
                 arr[i][symbol] = text.count(symbol)
         i+=1
-            
+
     return arr
 
 
@@ -96,41 +99,37 @@ def main():
             case 2:
                 if not CUSTOM_TEXT:
                     arr = alphabet_symbol_count()
-                    
+
+                    # Відсортувати кожний словник
                     for i in range(6):
                         arr[i] = {k: v for k, v in sorted(arr[i].items(), key=lambda x: x[1], reverse=False)}
 
                     symbol = input("СИМВОЛ (скіп, якщо хочеш побачити усю кількість символів): ")
 
+                    textes = [ENGLISH_TEXT, UKRAINIAN_TEXT, GERMAN_TEXT, INCOHERENT_ENG, INCOHERENT_UKR, INCOHERENT_GER]
+                    names = ["англійському", "українському", "німецькому"] * 2
+
                     if symbol:
-                        names = ["англійському", "українському", "німецькому"] * 2
                         for i in range(6):
                             if i % 3 == 0 and i != 0:
                                 print("Не зв'язані тексти")
                             elif i == 0:
                                 print("Зв'язані тексти")
                             try:
-                                print(f"У {names[i]} тексті символ '{symbol}' наявний {arr[i][symbol]} разів")
+                                print(f"У {names[i]} тексті символ '{symbol}' з частотою {arr[i][symbol] / llen(textes[i])}")
                             except KeyError:
                                 print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
                     else:
-                        print("[+] Англійському: ")
-                        print(arr[0])
-
-                        print("[+] Українському: ")
-                        print(arr[1])
-
-                        print("[+] Німецькому: ")
-                        print(arr[2])
-
-                        print("[+] Англійська (не зв'язана): ")
-                        print(arr[3])
-
-                        print("[+] Українська (не зв'язана): ")
-                        print(arr[4])
-
-                        print("[+] Німецька: (не зв'язана): ")
-                        print(arr[5])
+                        for i in range(6):
+                            print(f"[+] {names[i].title()}", end="")
+                            if i > 2:
+                                print(" (не зв'язана): ")
+                            else:
+                                print(": ") 
+                        
+                            for k,v in arr[i].items():
+                                print(f"{k} : {v / llen(textes[i])}")
+                            print(end="\n"*2)
                 else:
                     print("[+] Кастомному: ")
                     arr = {}
@@ -150,7 +149,7 @@ def main():
                         if CUSTOM_TEXT.count(symbol) > 0:
                             arr[symbol] = CUSTOM_TEXT.count(symbol)
                     arr = {k: v for k, v in sorted(arr.items(), key=lambda x: x[1])}
-                    pprint(arr)
+                    print(arr)
 
             # Виведення розмірність тексту
             case 3:
@@ -162,7 +161,7 @@ def main():
                     pws = [UKR_PWR, ENG_PWR, GER_PWR]
                     j = 0
                     for i in range(6):
-                        tmp[i] = len(tmp[i]) * log(pws[j],2) / 1024
+                        tmp[i] = llen(tmp[i]) * log(pws[j],2) / 1024
                         j += 1
                         if j == 3:
                             j = 0
@@ -177,7 +176,7 @@ def main():
                     print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", tmp[4], "МБ")
                     print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", tmp[5], "МБ")
                 else:
-                    print("[+] Кастомний текст: ", len(CUSTOM_TEXT) * log(ENG_PWR, 2))
+                    print("[+] Кастомний текст: ", llen(CUSTOM_TEXT) * log(ENG_PWR, 2))
             # Введення кастомного тексту
             case 4:
                 CUSTOM_TEXT = input("Enter: ")
