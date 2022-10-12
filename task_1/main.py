@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from math import log
+from math import log2
 
 # Тексти
 # Функція, що повертає текст з файлів
@@ -31,20 +31,19 @@ ENG_PWR     = 23
 UKR_PWR     = 33
 GER_PWR  = 30
 
+mass = [
+    (ENGLISH_TEXT, ENGLISH_ALPHABET), 
+    (UKRAINIAN_TEXT, UKRAINIAN_ALPHABET), 
+    (GERMAN_TEXT, GERMAN_ALPHABET),
+
+    (INCOHERENT_ENG, ENGLISH_ALPHABET), 
+    (INCOHERENT_UKR, UKRAINIAN_ALPHABET), 
+    (INCOHERENT_GER, GERMAN_ALPHABET)
+]
+
 # Задання кількості символів за трьома різними мовами двох текстів
 def alphabet_symbol_count() -> list:
-
     arr = [{},{},{},{},{},{}]
-    mass = [
-        (ENGLISH_TEXT, ENGLISH_ALPHABET), 
-        (UKRAINIAN_TEXT, UKRAINIAN_ALPHABET), 
-        (GERMAN_TEXT, GERMAN_ALPHABET),
-
-        (INCOHERENT_ENG, ENGLISH_ALPHABET), 
-        (INCOHERENT_UKR, UKRAINIAN_ALPHABET), 
-        (INCOHERENT_GER, GERMAN_ALPHABET)
-    ]
-
     i = 0
     for text, alphabet in mass:
         text = text.lower()
@@ -153,30 +152,24 @@ def main():
 
             # Виведення розмірність тексту
             case 3:
-                print("--= Розмірність у бітах =---")
+                print("--= Розмірність =---")
 
                 if not CUSTOM_TEXT:
-
-                    tmp = [UKRAINIAN_TEXT, ENGLISH_TEXT, GERMAN_TEXT, INCOHERENT_UKR, INCOHERENT_ENG, INCOHERENT_GER]
-                    pws = [UKR_PWR, ENG_PWR, GER_PWR]
-                    j = 0
+                    arr = alphabet_symbol_count()
+                    sizes = []
                     for i in range(6):
-                        tmp[i] = llen(tmp[i]) * log(pws[j],2) / 1024
-                        j += 1
-                        if j == 3:
-                            j = 0
+                        t = sum(list([log2(1/v) for v in arr[i].values()])) * -1
+                        sizes.append(t)
 
-                    print("Зв'язний текст")
-                    print("[+] УКРАЇНСЬКИЙ ТЕКСТ:\t", tmp[0], "МБ")
-                    print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", tmp[1], "МБ")
-                    print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", tmp[2], "МБ")
-
-                    print("Не зв'язний текст")
-                    print("[+] УКРАЇНСЬКИЙ ТЕКСТ:\t", tmp[3], "МБ")
-                    print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", tmp[4], "МБ")
-                    print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", tmp[5], "МБ")
+                    txt = ["український", "англійський", "німецький"]*2
+                    for i in range(6):
+                        if i == 0:
+                            print("Зв'язний текст")
+                        elif i%3==0:
+                            print("Не зв'язний текст")
+                        print(f"[+] {txt[i].upper()} ТЕКСТ:\t", sizes[i])
                 else:
-                    print("[+] Кастомний текст: ", llen(CUSTOM_TEXT) * log(ENG_PWR, 2))
+                    print("[+] Кастомний текст: ", llen(CUSTOM_TEXT) * log2(ENG_PWR))
             # Введення кастомного тексту
             case 4:
                 CUSTOM_TEXT = input("Enter: ")
