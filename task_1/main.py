@@ -7,6 +7,10 @@ from math import log
 def getc(filename: str) -> str:
     return open(filename+".txt", encoding="utf-8").read()
 
+# Повертає розмірність строки без пробілів
+def llen(text:str) -> int:
+    return len(text.replace(" ", ""))
+
 # Дістаємо текст з файлів
 UKRAINIAN_TEXT = getc("ukrainian")
 ENGLISH_TEXT = getc("english")
@@ -112,7 +116,7 @@ def main():
                             elif i == 0:
                                 print("Зв'язані тексти")
                             try:
-                                print(f"У {names[i]} тексті символ '{symbol}' з частотою {arr[i][symbol] / len(textes[i])}")
+                                print(f"У {names[i]} тексті символ '{symbol}' з частотою {arr[i][symbol] / llen(textes[i])}")
                             except KeyError:
                                 print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
                     else:
@@ -123,10 +127,8 @@ def main():
                             else:
                                 print(": ") 
                         
-                            print(len(arr[i].keys()))
                             for k,v in arr[i].items():
-                                # print(v, len(textes[i]))
-                                print(f"{k} : {v / len(textes[i])}")
+                                print(f"{k} : {v / llen(textes[i])}")
                             print(end="\n"*2)
                 else:
                     print("[+] Кастомному: ")
@@ -159,7 +161,7 @@ def main():
                     pws = [UKR_PWR, ENG_PWR, GER_PWR]
                     j = 0
                     for i in range(6):
-                        tmp[i] = len(tmp[i]) * log(pws[j],2) / 1024
+                        tmp[i] = llen(tmp[i]) * log(pws[j],2) / 1024
                         j += 1
                         if j == 3:
                             j = 0
@@ -174,7 +176,7 @@ def main():
                     print("[+] АНГЛІЙСЬКИЙ ТЕКСТ:\t", tmp[4], "МБ")
                     print("[+] НІМЕЦЬКИЙ ТЕКСТ:\t", tmp[5], "МБ")
                 else:
-                    print("[+] Кастомний текст: ", len(CUSTOM_TEXT) * log(ENG_PWR, 2))
+                    print("[+] Кастомний текст: ", llen(CUSTOM_TEXT) * log(ENG_PWR, 2))
             # Введення кастомного тексту
             case 4:
                 CUSTOM_TEXT = input("Enter: ")
