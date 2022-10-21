@@ -1,28 +1,45 @@
 #!/usr/bin/python3
 
+import numpy as np
+
+N = 10
+MATRIX = np.zeros((10,10))
+
+ONE_MATRIX = MATRIX.copy()
+TWO_MATRIX = MATRIX.copy()
+
 def GenerateMatrix():
     """
     Генерує потрібну матрицю
     """
+
+
     pass
 
 class Show:
-    @classmethod
+    @staticmethod
     def Matrix_common():
         """
         Виводить на екран матрицю ймовірностей спільної появи первинного та вторинного алфавіту.
         """
-        pass
+        print("\t",end="")
+        print("\t".join(["<%d>" % (x+1) for x in range(N)]))
 
-    @classmethod
-    def Matrix_cond(alphabet: str):
+        row_i = 1
+        for row in MATRIX:
+            print("[%d]\t" % row_i, end="")
+            print("\t".join([str(x) for x in row]))
+        print()
+
+    @staticmethod
+    def Matrix_cond():
         """
         Виводить на екран матрицю умовних ймовірностей появи символів первинного та вторинного алфавіту, 
         вторинного та первинного алфавіту.
         """
         pass
 
-    @classmethod
+    @staticmethod
     def Possibility_one():
         """
         Виводить на екран ймовірність символів ПЕРВИННОГО алфавіту,
@@ -30,7 +47,7 @@ class Show:
         """
         pass
 
-    @classmethod
+    @staticmethod
     def Possibility_two():
         """
         Виводить на екран ймовірність символів ВТОРИННОГО алфавіту,
@@ -38,7 +55,7 @@ class Show:
         """
         pass
 
-    @classmethod
+    @staticmethod
     def Calculations():
         """
         Виводить на екран результати наступних обчислень, а саме:
@@ -48,10 +65,32 @@ class Show:
         - H(A)
         - H(B)
         """
-        pass
+        print("H(A,B) = H(A) + H(B/A) = H(B) + H(A/B)")
+        print("H(A,B) = ")                  # !!!
+        print("H(A) + H(B/A) = ")           # !!!
+        print("H(B) + H(A/B) = ")           # !!!
+        print()
+        print("H(B/A) = H(A,B) - H(A)")
+        print("H(B/A) = ")                  # !!!
+        print("H(A,B) - H(A) = ")           # !!!
+        print()
+        print("H(A/B) = H(A,B) - H(B)")
+        print("H(A/B) = ")                  # !!!
 
 def main():
-    pass
+    # a = int(input("1. Generate a matrix\n2. Exit\n> "))
+    a = 1
+    if(a == 1):
+        matrix = GenerateMatrix()
+
+        Show.Matrix_common()
+
+        Show.Possibility_one()
+
+        Show.Possibility_two()
+    
+        Show.Calculations()
+
 
 if __name__ == "__main__":
     main()
