@@ -3,7 +3,7 @@
 import numpy as np
 
 N = 10
-MATRIX = np.zeros((10,10))
+MATRIX = np.zeros((N,N))
 
 ONE_MATRIX = MATRIX.copy()
 TWO_MATRIX = MATRIX.copy()
