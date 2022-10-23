@@ -1,19 +1,29 @@
 #!/usr/bin/python3
 
 import numpy as np
+from math import log2
 
 N = 10
-MATRIX = np.zeros((N,N))
+# MATRIX = np.zeros((N,N))
+MATRIX = np.array([[x]*10 for x in range(10)])
 
-ONE_MATRIX = MATRIX.copy()
-TWO_MATRIX = MATRIX.copy()
+ONE_MATRIX = MATRIX.sum(axis=1)
+TWO_MATRIX = MATRIX.sum(axis=0)
+
+
+def H(matrix):
+    total = 0.
+    for i in range(N):
+        if matrix[i] <= 0:
+            continue
+        total += matrix[i]*log2(matrix[i])
+    total *= -1
+    return total
 
 def GenerateMatrix():
     """
     Генерує потрібну матрицю
     """
-
-
     pass
 
 class Show:
@@ -37,7 +47,10 @@ class Show:
         Виводить на екран матрицю умовних ймовірностей появи символів первинного та вторинного алфавіту, 
         вторинного та первинного алфавіту.
         """
-        pass
+        print("First + second alphabet")
+        print("By rows      By columns")
+        for i in range(10):
+            print(f"p(a{i}) = {ONE_MATRIX[i]}\tp(b{i}) = {TWO_MATRIX[i]}")
 
     @staticmethod
     def Possibility_one():
@@ -45,7 +58,9 @@ class Show:
         Виводить на екран ймовірність символів ПЕРВИННОГО алфавіту,
         отриманої наа підставі матриці спільної появи.
         """
-        pass
+        print("Only first")
+        for i in range(10):
+            print(f"p(a{i}) = {ONE_MATRIX[i]}")
 
     @staticmethod
     def Possibility_two():
@@ -53,10 +68,15 @@ class Show:
         Виводить на екран ймовірність символів ВТОРИННОГО алфавіту,
         отриманої наа підставі матриці спільної появи.
         """
-        pass
+        print("Only second")
+        for i in range(10):
+            print(f"p(b{i}) = {TWO_MATRIX[i]}")
 
     @staticmethod
     def Calculations():
+        A = ONE_MATRIX
+        B = TWO_MATRIX
+
         """
         Виводить на екран результати наступних обчислень, а саме:
         - H(A,B)
@@ -66,16 +86,16 @@ class Show:
         - H(B)
         """
         print("H(A,B) = H(A) + H(B/A) = H(B) + H(A/B)")
-        print("H(A,B) = ")                  # !!!
-        print("H(A) + H(B/A) = ")           # !!!
-        print("H(B) + H(A/B) = ")           # !!!
+        print("H(A,B) = ", H(A+B))
+        print("H(A) + H(B/A) = ", H(A) + H(B/A))
+        print("H(B) + H(A/B) = ", H(B) + H(A/B))
         print()
         print("H(B/A) = H(A,B) - H(A)")
-        print("H(B/A) = ")                  # !!!
-        print("H(A,B) - H(A) = ")           # !!!
+        print("H(B/A) = ", H(A+B) - H(A))
+        print("H(A,B) - H(A) = ", H(A+B) - H(A))
         print()
         print("H(A/B) = H(A,B) - H(B)")
-        print("H(A/B) = ")                  # !!!
+        print("H(A/B) = ", H(A+B) - H(B))
 
 def main():
     # a = int(input("1. Generate a matrix\n2. Exit\n> "))
