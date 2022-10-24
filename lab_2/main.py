@@ -2,14 +2,10 @@
 
 import numpy as np
 from math import log2
+from random import randint
 
+# by variant
 N = 10
-# MATRIX = np.zeros((N,N))
-MATRIX = np.array([[x]*10 for x in range(10)])
-
-ONE_MATRIX = MATRIX.sum(axis=1)
-TWO_MATRIX = MATRIX.sum(axis=0)
-
 
 def H(matrix):
     total = 0.
@@ -17,14 +13,26 @@ def H(matrix):
         if matrix[i] <= 0:
             continue
         total += matrix[i]*log2(matrix[i])
-    total *= -1
+    total = abs(total)
     return total
 
-def GenerateMatrix():
+def GenerateMatrix() -> np.array:
     """
     Генерує потрібну матрицю
     """
-    pass
+    MATRIX = np.zeros((N,N))
+    pos = [0.05, 0.06, 0.04, 0.04, 0.05, 0.08, 0.04, 0.01, 0.1, 0.14, 0.02, 0.09, 0.01, 0.14, 0.06, 0.02, 0.05]
+    while pos:
+        p = pos.pop()
+        i,j = randint(0,9), randint(0,9)
+        while MATRIX[i][j] != 0:
+            i,j = randint(0,9), randint(0,9)
+        MATRIX[i][j] = p
+    return MATRIX
+
+MATRIX = GenerateMatrix()
+ONE_MATRIX = MATRIX.sum(axis=1)
+TWO_MATRIX = MATRIX.sum(axis=0)
 
 class Show:
     @staticmethod
@@ -39,6 +47,7 @@ class Show:
         for row in MATRIX:
             print("[%d]\t" % row_i, end="")
             print("\t".join([str(x) for x in row]))
+            row_i += 1
         print()
 
     @staticmethod
@@ -50,7 +59,7 @@ class Show:
         print("First + second alphabet")
         print("By rows      By columns")
         for i in range(10):
-            print(f"p(a{i}) = {ONE_MATRIX[i]}\tp(b{i}) = {TWO_MATRIX[i]}")
+            print(f"p(a{i}) = {round(ONE_MATRIX[i], 2)}\tp(b{i}) = {round(TWO_MATRIX[i], 2)}")
 
     @staticmethod
     def Possibility_one():
@@ -60,7 +69,8 @@ class Show:
         """
         print("Only first")
         for i in range(10):
-            print(f"p(a{i}) = {ONE_MATRIX[i]}")
+            print(f"p(a{i}) = {round(ONE_MATRIX[i], 2)}")
+        print()
 
     @staticmethod
     def Possibility_two():
@@ -70,7 +80,8 @@ class Show:
         """
         print("Only second")
         for i in range(10):
-            print(f"p(b{i}) = {TWO_MATRIX[i]}")
+            print(f"p(b{i}) = {round(TWO_MATRIX[i], 2)}")
+        print()
 
     @staticmethod
     def Calculations():
@@ -87,8 +98,17 @@ class Show:
         """
         print("H(A,B) = H(A) + H(B/A) = H(B) + H(A/B)")
         print("H(A,B) = ", H(A+B))
-        print("H(A) + H(B/A) = ", H(A) + H(B/A))
-        print("H(B) + H(A/B) = ", H(B) + H(A/B))
+
+        if 0 not in A:
+            print("H(A) + H(B/A) = ", H(A) + H(B/A))
+        else:
+            print("H(A) + H(B/A) = ", H(A) + 0)
+
+        if 0 not in B:
+            print("H(B) + H(A/B) = ", H(B) + H(A/B))
+        else:
+            print("H(B) + H(A/B) = ", H(B) + 0)
+
         print()
         print("H(B/A) = H(A,B) - H(A)")
         print("H(B/A) = ", H(A+B) - H(A))
@@ -101,7 +121,7 @@ def main():
     # a = int(input("1. Generate a matrix\n2. Exit\n> "))
     a = 1
     if(a == 1):
-        matrix = GenerateMatrix()
+        Show.Matrix_cond()
 
         Show.Matrix_common()
 
