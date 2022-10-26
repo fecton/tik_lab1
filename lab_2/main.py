@@ -100,6 +100,9 @@ class Show:
         print("H(A,B) = ", H(A+B))
 
         print()
+        print("H(A) = ", H(A))
+        print("H(B) = ", H(B))
+        print()
         print("H(B/A) = H(A,B) - H(A)")
         print("H(B/A) = ", H(A+B) - H(A))
         print("H(A,B) - H(A) = ", H(A+B) - H(A))
