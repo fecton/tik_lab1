@@ -99,16 +99,9 @@ class Show:
         print("H(A,B) = H(A) + H(B/A) = H(B) + H(A/B)")
         print("H(A,B) = ", H(A+B))
 
-        if 0 not in A:
-            print("H(A) + H(B/A) = ", H(A) + H(B/A))
-        else:
-            print("H(A) + H(B/A) = ", H(A) + 0)
-
-        if 0 not in B:
-            print("H(B) + H(A/B) = ", H(B) + H(A/B))
-        else:
-            print("H(B) + H(A/B) = ", H(B) + 0)
-
+        print()
+        print("H(A) = ", H(A))
+        print("H(B) = ", H(B))
         print()
         print("H(B/A) = H(A,B) - H(A)")
         print("H(B/A) = ", H(A+B) - H(A))
