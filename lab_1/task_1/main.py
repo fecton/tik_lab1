@@ -105,7 +105,6 @@ def main():
 
                     symbol = input("СИМВОЛ (скіп, якщо хочеш побачити усю кількість символів): ")
 
-                    textes = [ENGLISH_TEXT, UKRAINIAN_TEXT, GERMAN_TEXT, INCOHERENT_ENG, INCOHERENT_UKR, INCOHERENT_GER]
                     names = ["англійському", "українському", "німецькому"] * 2
 
                     if symbol:
@@ -115,7 +114,7 @@ def main():
                             elif i == 0:
                                 print("Зв'язані тексти")
                             try:
-                                print(f"У {names[i]} тексті символ '{symbol}' з частотою {arr[i][symbol] / llen(textes[i])}")
+                                print(f"У {names[i]} тексті символ '{symbol}' з частотою {arr[i][symbol] / llen(mass[i][0])}")
                             except KeyError:
                                 print(f"У {names[i]} тексті символ '{symbol}' не наявний") 
                     else:
@@ -127,7 +126,7 @@ def main():
                                 print(": ") 
                         
                             for k,v in arr[i].items():
-                                print(f"{k} : {v / llen(textes[i])}")
+                                print(f"{k} : {v / llen(mass[i][0])}")
                             print(end="\n"*2)
                 else:
                     print("[+] Кастомному: ")
@@ -158,7 +157,10 @@ def main():
                     arr = alphabet_symbol_count()
                     sizes = []
                     for i in range(6):
-                        t = sum(list([log2(1/v) for v in arr[i].values()])) * -1
+                        t = 0
+                        for v in arr[i].values():
+                            p = v / llen(mass[i][0])
+                            t += p*log2(1/p)
                         sizes.append(t)
 
                     txt = ["український", "англійський", "німецький"]*2
