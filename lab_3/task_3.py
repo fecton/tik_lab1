@@ -15,7 +15,37 @@ Task 3:
 Використовувати будь-які пристої для кодування та декодування
 """
 
+from .task_2 import *
+
 print("\n\tTask 3\n")
+alphabetB = "abcdefghijklemnop"
+print("Message", alphabetB)
+
+duration = 0
+
+for i in range(1,17):
+    duration += Entropy / i
+
+print("Speed of translation thee messsage(1) = ", duration)
+
+task3 = "aabbccddeeffgghhiijj"
+print("Message: ", task3)
+
+probability = 0.0625
+Entropy1 = 0
+for i in range(0,11):
+    Entropy1 += probability * log2(probability)
+
+Entropy1 = abs(Entropy1)
+
+duration2 = 0
+for i in range(1,17):
+    duration2 += Entropy1 / i
+
+print("Speed of translation(2) = ", duration2)
+
+
+
 
 
 
