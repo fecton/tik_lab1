@@ -1,5 +1,5 @@
 """
-File: main.py
+File: task_2.py 
 Theory of information and coding
 Laboratory word #3
 
