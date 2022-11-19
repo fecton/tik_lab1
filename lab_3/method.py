@@ -1,4 +1,5 @@
-from .task_1 import unique,log2
+from math import log2
+from task_1 import unique
 
 def size_caulculation(s: str) -> dict:
     """
@@ -77,6 +78,75 @@ def ShannonFanoRec(arr: list, codShannon: str, start: int) -> None:
         ShannonFanoRec(rightpart, codShannon, start + divIndex)
 
 
-def Encode(text: str, symbols: str, codes: str):
-    code = text.replace('1', '')
+def Encode(text: str, symbols: str):
+    s1 = 'ッ'    
+    s2 = 'あ'
+
+    code = text.replace('1', s1)
+    code = code.replace('0', s2)
+
+    # indexOf = symbols.index('1')
+    # if indexOf >= 0:
+    #     symbols[indexOf] = s1
+    
+    # indexOf = symbols.index('0')
+    # if indexOf >= 0:
+    #     symbols[indexOf] = s2
+
+    # indexOf = symbols.index(s1)
+    # if(indexOf >= 0):
+    #     symbols[indexOf] = '1'
+
+    # indexOf = symbols.index(s2)
+    # if indexOf >= 0:
+    #     symbols[indexOf] = '0'
+
+    return code
+
+def Decode(code: str, symbols: str):
+    s1 = 'ッ'    
+    s2 = 'あ'
+
+    text = code
+
+    text = text.replace(s1, '0')
+    text = text.replace(s2, '1')
+    #     symbols[indexOf] = s1
+    
+    # indexOf = symbols.index('0')
+    # if indexOf >= 0:
+    #     symbols[indexOf] = s2
+    
+    # text = ""
+    # for i in range(0,len(code)):
+    #     for j in range(0,len(symbols)):
+    #         if code[i:len(codes[j])] == codes[j]:
+    #             text += symbols[j]
+    #             t += len(codes[j]) - 1
+    #             break
+    
+    # indexOf = symbols.index(s1)
+    # if indexOf >= 0:
+    #     text = text.replace(s1, '1')
+    
+    # indexOf = symbols.index(s2)
+    # if indexOf >= 0:
+    #     text = text.replace(s2, '0')
+
+    # indexOf = symbols.index(s2)
+    # if indexOf >= 0:
+    #     symbols[indexOf] = '1'
+
+    # indexOf = symbols.index(s2)
+    # if indexOf >= 0:
+    #     symbols[indexOf] = '0'
+    
+    return text
+
+
+a = Encode("101010101011011100011111000", '10')
+print(a)
+
+b = Decode(a, '10')
+print(b)
 
