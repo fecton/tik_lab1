@@ -78,7 +78,7 @@ def ShannonFanoRec(arr: list, codShannon: str, start: int) -> None:
         ShannonFanoRec(rightpart, codShannon, start + divIndex)
 
 
-def Encode(text: str, symbols: str):
+def Encode(text: str):
     s1 = 'ッ'    
     s2 = 'あ'
 
@@ -103,7 +103,7 @@ def Encode(text: str, symbols: str):
 
     return code
 
-def Decode(code: str, symbols: str):
+def Decode(code: str):
     s1 = 'ッ'    
     s2 = 'あ'
 
@@ -143,10 +143,26 @@ def Decode(code: str, symbols: str):
     
     return text
 
+def menu():
+    print(""" Menu
+    - 1. Encode
+    - 2. Decode
+    - 3. Exit
+    """)
 
-a = Encode("101010101011011100011111000", '10')
-print(a)
-
-b = Decode(a, '10')
-print(b)
-
+op = 0
+while 1:
+    match op:
+        case 0:
+            menu()
+        case 1:
+            value = input("Enter value to encode: ")
+            print("Encoded: ", Encode(value))
+        case 2:
+            value = input("Enter value to decode: ")
+            print("Decoded: ", Decode(value))
+        case 3:
+            exit()
+        case _:
+            print("Invalid operation!")
+    op = int(input('>> '))
