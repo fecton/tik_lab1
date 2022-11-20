@@ -30,6 +30,7 @@ def unique(s: str) -> str:
 
 print("\n\tTask 1\n")
 
+# Символ зустрічаються з рівними ймовірностями
 symbols = "abcdefghijklmnop0123456789"
 task_1_message = symbols*3
 print("Message: ", task_1_message)
@@ -37,6 +38,9 @@ print("Message: ", task_1_message)
 
 InfoAmount_A = log2(len(symbols))
 print("Information amount(a): ", InfoAmount_A)
+
+# Ймовірність появи символів відповідають підпорядкованому
+# наступного закону
 
 task_2_message = "kkkkkkkkkkkkkkkk33333333cccc00fa"
 print("Message: ", task_2_message)
