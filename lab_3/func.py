@@ -88,3 +88,7 @@ def ShannonFanoRec(codShannon: str) -> None:
         decoded += list(to_encode_table.keys())[(list(to_encode_table.values()).index(current))]
 
     print("Розкодування прямого коду: ", decoded)
+
+    t = round(len(list(to_encode_table.keys())) / mlength,2)
+    print("Середнє на символ число двійкових розрядів коду: ", t)
+    print("Ступінь близькості середнього на символ числа двійкових розрядів коду до ентропії: ", t / Entropy(probability(codShannon)))
