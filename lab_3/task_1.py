@@ -14,18 +14,7 @@ p(i) = (1/2)**i, sum(p(i)) = 1
 """
 
 from math import log2
-
-def unique(s: str) -> str:
-    """
-    Gets unique values from a string and returns it
-    @param s - string
-    @return string of unique elements
-    """
-    a = ""
-    for i in s:
-        if i not in a:
-            a += i
-    return a
+from func import unique
 
 
 print("\n\tTask 1\n")
@@ -44,9 +33,7 @@ print("Information amount(a): ", InfoAmount_A)
 
 task_2_message = "kkkkkkkkkkkkkkkk33333333cccc00fa"
 print("Message: ", task_2_message)
-
 InfoAmount_B = 0.
-
 for symbol in unique(task_2_message):
     k = task_2_message.count(symbol) / len(task_2_message)
     InfoAmount_B += k * log2(k)
