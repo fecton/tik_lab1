@@ -41,8 +41,8 @@ for i in range(1,17):
 
 print("Speed of translation(1) = ", duration)
 
-# task3 = "aabbccddeeffgghhiijj"
-task3 = task_1_message
+task3 = "aabbccddeeffgghhiijj"
+# task3 = task_1_message
 print("Message: ", task3)
 
 probability = 0.0625
