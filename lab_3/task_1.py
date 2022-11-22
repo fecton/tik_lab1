@@ -21,7 +21,7 @@ print("\n\tTask 1\n")
 
 # Символ зустрічаються з рівними ймовірностями
 symbols = "abcdefghijklmnopqrstuvw"
-task_1_message = symbols*3
+task_1_message = symbols*4
 print("Message: ", task_1_message)
 
 
@@ -31,7 +31,7 @@ print("Information amount(a): ", InfoAmount_A)
 # Ймовірність появи символів відповідають підпорядкованому
 # наступного закону
 
-task_2_message = "kkkkkkkkkkkkkkkk33333333cccc00fa"
+task_2_message = "bbffchhhbbffffffbbjjjjjjjjjjaaaa"
 print("Message: ", task_2_message)
 InfoAmount_B = 0.
 for symbol in unique(task_2_message):
