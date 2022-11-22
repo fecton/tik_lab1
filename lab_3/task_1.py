@@ -20,7 +20,7 @@ from func import unique
 print("\n\tTask 1\n")
 
 # Символ зустрічаються з рівними ймовірностями
-symbols = "abcdefghijklmnop0123456789"
+symbols = "abcdefghijklmnopqrstuvw"
 task_1_message = symbols*3
 print("Message: ", task_1_message)
 
