@@ -10,13 +10,14 @@ Task 2:
 Імовірність появи символів взяти з пункту 1.1
 """
 
-from task_1 import task_1_message, InfoAmount_A, symbols,task_2_message, InfoAmount_B, k
+from task_1 import task_1_message, InfoAmount_A, symbols,task_2_message, InfoAmount_B
 
 from math import log2
 from func import unique
 
 print("\n\tTask 2\n")
 # Кількість символів алфавіту (команда + 10)
+k = 23
 symbols = symbols[:k]
 
 
@@ -31,9 +32,9 @@ print("UnderLoaded Symbols(b) = ", UnderLoadedSymb)
 
 duration = 0
 for i in range(1,k+1):
-    duration += Entropy / i
+    duration += i
 
-print("Speed of translation(1) = ", duration)
+print("Speed of translation(1) = ", MaxEntropy / (duration / k))
 
 task3 = "aabbccddeeffgghhiijj"
 print("Message: ", task3)
@@ -46,7 +47,7 @@ for i in range(0,11):
 Entropy1 = abs(Entropy1)
 
 duration2 = 0
-for i in range(1,k):
-    duration2 += Entropy1 / i
+for i in range(1,k+1):
+    duration2 += i
 
-print("Speed of translation(2) = ", duration2)
+print("Speed of translation(2) = ", Entropy1 / (duration2 / k))
