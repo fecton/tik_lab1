@@ -19,8 +19,8 @@ from func import *
 
 
 def main():
-    # message = input("Enter your message: ")
-    message = "ferfioergjirejigeio"
+    message = input("Enter your message: ")
+    # message = "ferfioergjirejigeio"
     # Кількість повторень символів
     sizes = size_caulculation(message)
     print("Повідомлення: %s" % message)
@@ -43,29 +43,6 @@ def main():
 
     ShannonFanoRec(message)
 
-def menu():
-    print(""" Menu
-    - 1. Encode
-    - 2. Decode
-    - 3. Exit
-    """)
-
-main()
-exit()
-
 op = 0
 while 1:
-    match op:
-        case 0:
-            menu()
-        case 1:
-            value = input("Enter value to encode: ")
-            print("Encoded: ", Encode(value))
-        case 2:
-            value = input("Enter value to decode: ")
-            print("Decoded: ", Decode(value))
-        case 3:
-            exit()
-        case _:
-            print("Invalid operation!")
-    op = int(input('>> '))
+    main()
