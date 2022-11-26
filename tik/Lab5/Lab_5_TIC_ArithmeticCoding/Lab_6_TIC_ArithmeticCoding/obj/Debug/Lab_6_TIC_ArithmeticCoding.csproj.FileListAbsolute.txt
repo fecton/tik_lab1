@@ -1,0 +1,20 @@
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\bin\Debug\Lab_6_TIC_ArithmeticCoding.exe.config
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\bin\Debug\Lab_6_TIC_ArithmeticCoding.exe
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\bin\Debug\Lab_6_TIC_ArithmeticCoding.pdb
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.csprojAssemblyReference.cache
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.Form1.resources
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.Properties.Resources.resources
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.csproj.GenerateResource.cache
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.csproj.CoreCompileInputs.cache
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.exe
+C:\Users\olegt\source\repos\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.pdb
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\bin\Debug\Lab_6_TIC_ArithmeticCoding.exe.config
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\bin\Debug\Lab_6_TIC_ArithmeticCoding.exe
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\bin\Debug\Lab_6_TIC_ArithmeticCoding.pdb
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.csprojAssemblyReference.cache
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.Form1.resources
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.Properties.Resources.resources
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.csproj.GenerateResource.cache
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.csproj.CoreCompileInputs.cache
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.exe
+C:\Users\Slavi\Downloads\Telegram Desktop\Какие-то проекты по ТИК\Lab_6_TIC_ArithmeticCoding\Lab_6_TIC_ArithmeticCoding\obj\Debug\Lab_6_TIC_ArithmeticCoding.pdb

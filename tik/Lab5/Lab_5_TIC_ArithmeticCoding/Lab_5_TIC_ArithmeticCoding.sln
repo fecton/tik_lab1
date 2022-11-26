@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_5_TIC_ArithmeticCoding", "Lab_6_TIC_ArithmeticCoding\Lab_5_TIC_ArithmeticCoding.csproj", "{3DBEBEF0-09D3-4C92-8BB3-328A3739E60A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DBEBEF0-09D3-4C92-8BB3-328A3739E60A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DBEBEF0-09D3-4C92-8BB3-328A3739E60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DBEBEF0-09D3-4C92-8BB3-328A3739E60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DBEBEF0-09D3-4C92-8BB3-328A3739E60A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EBA25A40-AD14-45FF-9779-AD047E80BF16}
+	EndGlobalSection
+EndGlobal
