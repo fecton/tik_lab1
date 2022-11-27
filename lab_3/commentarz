@@ -1,0 +1,104 @@
+"""
+Event: Button Click
+  
+  ✅ Data initilization after input text
+      - SDI = dict()         len <- Symbols amount in text
+      - codingTable = dict() len <- SDI.keys.count
+  
+  ✅ Calculate Veroutnisti Poavleniy 
+      - for el in text:
+            if not el in SDI:
+                SDI[el] = text.count(el) / len(text)
+            
+            if not codingTable.get(el, 0):
+                codingTable[el] = ""
+                
+        
+  > Global Script
+    ✅ Sort SDI and Calculate Entropy
+        entropy = 0
+        # Sort SDI descending by value
+        for veroytniost in SDI.values():
+            entropyInput += veroytnost * log2(veroytnost)
+        entropyInput = 0 - entropyInput
+        print(entropyInput)
+    
+    ✅ if needModef = False:
+    ✅    arrDefaultVer = SDI
+    
+    ✅ arrSortedKeys = SDI.keys()
+
+    - Shenon Fano Main Func(0, len(SDI.keys()))
+        # ShennonFanoMainFunc(int L, int R)
+
+        j = L
+        while j < half:
+            codingTable[arrSrotedKeys[j]] += "1"
+            j += 1
+
+        j = half
+        while j < R:
+            codingTable[arrSortedKeys[j]] += "0"
+        
+        if(half - L > 1):
+            ShenonFanoMainFunc(L, half)
+        if(R - half > 1):
+            ShenonFanoMainFunc(half, R)
+
+    - Calculate Average Count Bits Per Symbol
+        av = 0
+        for ch in codingTable.keys():
+            av += SDI[ch] * len(codingTable[ch])
+        print(av) "G4"
+
+    - Analize Getted Count And Input Entropy
+        closeCoef = (av - entropyInput) / entropyInput
+        labelCloseCoef = str(closeCoef)
+
+        if(closeCoef > 0.15):
+            needModef = true
+            > ModificateSDI
+                tmpDict = dict(SDI.Count * 2)
+                > modArrVer = CalcModifiedVer()
+                print("length:" + len(modArrVer))
+                for i in range(len(SDI)*2):
+                    tmpDict[i] = modArrVer[i]
+                SDI = tmpDict
+
+            > ChangeCodingTable
+                tmpTable = dict()
+                for i in range(len(SDI.keys())):
+                    tmpTable[i] = ""
+                codingTable = tmptable
+
+            > SetDGVSDI
+                # dgvSDI - maybe is an graphical object
+
+                dgvSDI.ColumnCount = 2
+                dgvSDI.RowCount = len(SDI.keys())
+                arrOfKeys = list(SDI.keys())
+                arrOfValues = list(SDI.values())
+                dgvSDI.Columns[0].HeaderText = "Символ"
+                dgvSDI.Columns[1].HeaderText = "Вероятность"
+                dgvSDI.Column[0].Width = 25;
+
+                for i in range(dgvSDI.RowCount):
+                    if needModef:
+                        dgvSDI[0,i].Value = "X" + arrofKeys[i]
+                    else:
+                        dgvSDI[0,i].Value = arrOfKeys[i]
+                    dgvSDI[1,i].Value = arrOfValues[i]
+
+            > GlobalScript()
+  
+  > Coding Text
+    SortSDIAndCalcEntropy()
+    if not needModef:
+        arrDefaultVer = list(SDI.values())
+    arrSortedKeys = list(SDI.keys())
+    ShenonFanoMainFunc(0, len(SDI.keys()))
+    CalcAverageCountBitsPerSymb()
+    AnalizGettedCountAndInputEntropy()
+  
+  > Set DGVSDI
+"""
