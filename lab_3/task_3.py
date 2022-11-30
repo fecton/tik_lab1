@@ -1,162 +1,136 @@
-"""
-File: task_3.py
-Theory of information and coding
-Laboratory word #3
-
-Task 3:
-Знайти швидкість передачу повідомлень, складених із таких символів.
-1.3 Побудувати оптимальний код повідомленення з використанням методу
-Шеннона-Фано, описаного вище.
-
-1.4 Отримайний код має бути переданий ввід кодера (пристрій 1)
-на декодер (пристрій 2).
-
-1.5 Декодер має розкодувати отриману послідовність. Можна
-Використовувати будь-які пристої для кодування та декодування
-"""
-
 # Modules
-# =============================================
-import math
-import collections
-# =============================================
+# =========================================
+from math import log2
+# =========================================
 
-# Global variables
-# =============================================
-TextToEncode = ""
-TextToDecode = ""
-Text = ""
+# Functions
+# =========================================
+StringDictionary    = {}
+codingTable         = {}
 
-SDI                         = dict()
-codingTable                 = dict()
-arrSortedKeys               = []
-arrDefaultVer               = []
+def ShenonFanoMainFunc(L: int, R: int):
+    # defining half
+    half = 0
+    arrSDValues = list(StringDictionary.values())
+    i = L
+    M = i
 
-entropyInput                = 0.0
-averageCountBitsPerSymbol   = 0.0
-closeCoef                   = 0.0
-needModeof                  = False
-# =============================================
+    for j in range(L, R):
+        half += arrSDValues[j]
 
-# Fuctions
-# =============================================
-def menu() -> None:
-    print(""" -= Menu =-
-0. Menu
-1. Encode
-2. Decode
-3. Exit""")
+    half /= 2
 
+    counterValue = 0
+    while( (counterValue + arrSDValues[i] < half) and (i < R) ):
+        counterValue += arrSDValues[i]
+        i += 1
+    deltaFromTopSide    = abs(half - counterValue)
+    deltaFromBottomSide = abs((counterValue + arrSDValues[i]) - half)
 
-# =============================================
+    if( (deltaFromTopSide > deltaFromBottomSide) and (i < R) ):
+        i += 1
 
-# Main program cycle
-# =============================================
-class Program:
+    half = i
+    for j in range(L, half):
+        codingTable[arrSortedKeys[j]] += "1"
+    for j in range(half, R):
+        codingTable[arrSortedKeys[j]] += "0"
 
-    def main():
-        Program.DataIntializationInputText()
-        Program.CalculatePossibility()
-        Program.GlobalScript()
-        Program.CodingText()
-        Program.SetDGVSDI()
+    if half - L > 1:
+        ShenonFanoMainFunc(L, half)
+    if R - half > 1:
+        ShenonFanoMainFunc(half, R)
+# =========================================
 
+# TextToEncode = "интересно"
 
-    @classmethod
-    def EnterData():
-        global Text
+def Encode(TextToEncode: str) -> None:
+    global StringDictionary, codingTable
+    # Підрахувати вірогідність появлень
+    # Та заповнити словник літерами з пустими значеннями для майбутнього кодування
+    for el in TextToEncode:
+        if not StringDictionary.get(el, 0):
+            StringDictionary[el] = TextToEncode.count(el) / len(TextToEncode)
 
-        Text = input("[TEXT] >> ")
+        if not codingTable.get(el, 0):
+            codingTable[el] = ""
 
-    @classmethod
-    def DataIntializationInputText():
-        global SDI, codingTable
+    entropyInput = 0
+    StringDictionary = {k:v for k,v in sorted(StringDictionary.items(), key=lambda item : item[1], reverse=True)}
 
-        SDI         = dict()
-        codingTable = dict()
-
-
-    @classmethod
-    def CalculatePossibility():
-        global Text
-
-        for el in Text:
-            if not el in SDI:
-                SDI[el] = Text.count(el) / len(Text)
-            if not codingTable.get(el, 0):
-                codingTable[el] = ""
-
-    @classmethod
-    def GlobalScript():
-        raise NotImplementedError
-    
-
-    @classmethod
-    def CodingText():
-        raise NotImplementedError
+    for possibility in StringDictionary.values():
+        entropyInput += possibility * log2(possibility)
+    entropyInput = abs(entropyInput)
+    print("Entropy : ", round(entropyInput, 4))
 
 
-    @classmethod
-    def SetDGVSDI():
-        raise NotImplementedError
+    global arrDefaultVar, arrSortedKeys
+    arrDefaultVar = list(StringDictionary.values())
+    arrSortedKeys = list(StringDictionary.keys())
+
+    # GlobalScript
+    # =========================================
+    # ShenonFanoMainFunc
+    ShenonFanoMainFunc(0, len(StringDictionary.keys()))
+
+    # CalcAverageCountBitsPerSymb
+    averageCountBitsPerSymbol = 0
+    for ch in codingTable.keys():
+        averageCountBitsPerSymbol += StringDictionary[ch] * len(codingTable[ch])
+
+    print("Average Count Bits Per Symbol : ", round(averageCountBitsPerSymbol, 4))
+
+    # AnalizGettedCountAndInputEntropy
+    closeCoef = (averageCountBitsPerSymbol - entropyInput) / entropyInput
+    print("Degree of closeness : ", round(closeCoef, 4))
+
+    # CodingText
+    res = ""
+    for i in range(len(TextToEncode)):
+        res += codingTable[TextToEncode[i]]
+    print("Coded text : ", res)
+
+    # SetDGVSDI
+    print("\tSymbol\tPossibility")
+    for k,v in StringDictionary.items():
+        print("\t{0}\t{1}".format(k,v))
+
+    print()
+    print("Encode table")
+    for k,v in codingTable.items():
+        print("\t{0}\t{1}".format(k,v))
 
 
-# =============================================
 
-# Additional classes
-# =============================================
+# DECODING
+def Decode(EncodedText: str) -> None:
+    decodedStr = ""
+    i = 0
+    print("Encoded message: ", EncodedText)
+    while EncodedText:
+        for j in range(len(EncodedText)+1):
+            sub = EncodedText[:j]
+            if sub in list(codingTable.values()):
+                decodedStr += list(codingTable.keys())[(list(codingTable.values()).index(sub))]
+                EncodedText = EncodedText[j:]
+                break
 
-class GlobalScript:
-    @classmethod
-    def Main():
-        GlobalScript.SortSDIAndCalculateEntropy()
-        if not needModeof:
-            arrDefaultVer = SDI
-        arrSortedKeys = SDI.keys()
-        GlobalScript.ShenonFanoMainFunc(0, len(SDI.keys()))
-        GlobalScript.CalculateAverageCountBitsPerSymbol()
-        GlobalScript.AnalizeGettedCountAndInputEntropy()
-        Program.CodingText()
-        Program.SetDGVSDI()
-
-    @classmethod
-    def ShenonFanoMainFunc(L: int, R: int):
-        raise NotImplementedError
-
-    @classmethod
-    def CalculateAverageCountBitsPerSymbol():
-        raise NotImplementedError
-
-    @classmethod
-    def AnalizeGettedCountAndInputEntropy():
-        raise NotImplementedError
-
-
-# =============================================
-
-
-def work_with_text( text: str ) -> None:
-    text = text.lower()
-    I = 0
-    symbols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'v', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '+', '/', '*', '!', '@', '#', '$', '%', '^', '&', '?', '(', ')', '[', ']', '{', '}', ' ']
-    #Sorting
-    for i in symbols:
-        c = collections.Counter()
-        for symbol in text:
-             c[symbol] += 1
-    Total = sum(c.values())
-    #Shannon's formula
-    for i in symbols:
-        for symbol in text:
-            n = c[i]
-        if n > 0:   
-            #print(i, c[i]) # Number of certain characters
-            p = n / Total # Probability
-            I += math.log2(1/p) # Entropy
-            # За необхідністю зробити вивід p або I
-    pass
-    
-
-
+    print("Decoded text: ", decodedStr)
+            
+op = 0
+while True:
+    match op:
+        case 0:
+            print("Menu:\n1. Encode and info\n2. Decode\n3. Exit")
+        case 1:
+            StringDictionary = {}
+            codingTable = {}
+            Encode(input("[ENCODE TEXT] >> "))
+        case 2:
+            Decode(input("[DECODED TEXT] >> "))
+        case 3:
+            print("Exit!")
+            break
+    op = int(input("[OP] >> "))
 
 
