@@ -78,7 +78,7 @@ def Encode(TextToEncode: str) -> None:
     for ch in codingTable.keys():
         averageCountBitsPerSymbol += StringDictionary[ch] * len(codingTable[ch])
 
-    print("Average Count Bits Per Symbol : ", round(averageCountBitsPerSymbol, 4))
+    # print("Average Count Bits Per Symbol : ", round(averageCountBitsPerSymbol, 4))
 
     # AnalizGettedCountAndInputEntropy
     closeCoef = (averageCountBitsPerSymbol - entropyInput) / entropyInput
