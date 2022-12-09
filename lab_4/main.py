@@ -2,7 +2,7 @@
 # =========================================
 import numpy as np
 
-from random import uniform
+from random import uniform, shuffle
 from math import log2
 # =========================================
 
@@ -10,45 +10,78 @@ from math import log2
 # GLOBAL
 # =========================================
 m = 10
-matrix = np.zeros((m,m+1))
-matrix.dtype = "float16"
-Row = []
+matrix = np.zeros((m,m))
+
+# Генерація випадкової матриці
+a = [0.02, 0.02, 0.006, 0.004, 0.02, 0.001, 0.003, 0.005, 0.001, 0.03, 0.04, 0.01, 0.01, 0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.03, 0.05, 0.04, 0.01, 0.1, 0.02, 0.01, 0.04, 0.06, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.004, 0.02, 0.09, 0.14, 0.06, 0.02, 0.02, 0.01, 0.002, 0.01]
+shuffle(a)
+b = [x * 0.5 for x in a]*2
+row = np.array(b)
+matrix = row.reshape((m,m))
+
 # Закон розподілу джерел: Геометричний розподіл
 # =========================================
-
+# P(x = n) = p1(1-p)**(n-1)
 
 # FUNCTIONS
 # =========================================
 def gen():
+    """
+    Генерує випадкове число від нуля до одиниці, та округляє до тисячних (0.001)
+    """
     return round(uniform(0.,1.), 3)
 
 def Fact(n: int):
+    """
+    Факторіал числа
+    """
     if n <= 1: return 1
     return n*Fact(n-1)
 
 def show():
+    """
+    Вивести матрицю
+    """
     global matrix
     print("\tMATRIX")
-    print("\t"+"\t".join([str(x) for x in range(1,m+1)] + ["p(x)"]))
+    print("\t"+"\t".join([str(x) for x in range(1,m+1)]))
     for i in range(m):
-        print("%d\t" % (i+1) +"\t".join([str(matrix[i][x]) for x in range(m+1)]))
+        print("%d\t" % (i+1) +"\t".join([str(matrix[i][x]) for x in range(m)]))
     print()
 
+def matrix_cond():
+    """
+    Виводить на екран матрицю умовних ймовірностей появи символів первинного та вторинного алфавіту, 
+    вторинного та первинного алфавіту.
+    """
+
+    ONE_MATRIX = matrix.sum(axis=1)
+    TWO_MATRIX = matrix.sum(axis=0)
+
+    print("Первинний алфавіт")
+
+    for i in range(10):
+        print(f"p(a{i}) = {ONE_MATRIX[i]}")
+    print()
+    print("Total: ", ONE_MATRIX.sum(),end="\n"*2)
+
+    print("Вторинний алфавіт")
+    for i in range(10):
+        print(f"p(b{i}) = {TWO_MATRIX[i]}")
+    print()
+    print("Total: ", TWO_MATRIX.sum(),end="\n"*2)
 
 # =========================================
 
 
 # MAIN CYCLE
 # =========================================
-for i in range(m):
-    Row.append(gen())
-    for j in range(m):
-        matrix[i][j] = round((Fact(m - 1) / (Fact(j) * Fact(m - 1 -j))) * pow(Row[i], j) * pow(1 - Row[i], m -1 -j), 4)
-    matrix[i][m] = Row[i]
+matrix_cond()
+show()
 # =========================================
 
-show()
 
+"""
 pX = []
 pY = []
 D = m - 1
@@ -120,7 +153,7 @@ print("H(A/B) = ", HAB, "bit/symbol")
 print("H(B/A) = ", HBA, "bit/symbol")
 print("C = ", C, "bit/symbol")
 
-
+"""
 
 
 
