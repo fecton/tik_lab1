@@ -21,6 +21,21 @@ def GenMatrix_10() -> np.ndarray:
     return matrix
 
 
+def GenMatrix_Random(m: int) -> np.ndarray:
+    """
+    Генерує повністю випадкову матрицю
+
+    @param m Розмірність квадратної матриці
+
+    @return Випадкова матриця MxM
+    """
+    matrix = np.zeros(shape=(m,m))
+    for i in range(m):
+        for j in range(m):
+            matrix[i][j] = Gen()
+    return matrix
+
+
 def ShowMatrix(matrix: np.ndarray, m: int):
     """
     Виводить матрицю
@@ -92,7 +107,6 @@ def DefineEverything(matrix: np.ndarray, Px: list) -> dict:
         H_BA += L * Px[i]
         H_AB += K * Px[i]
 
-    C       *= -1
     H_AB    *= -1
     H_BA    *= -1
     D       *= H_BA
@@ -103,7 +117,7 @@ def DefineEverything(matrix: np.ndarray, Px: list) -> dict:
     res["H(A/B)"] = H_AB
     res["H(B/A)"] = H_BA
     res["D"] = D
-    res["C"] = C
+    res["C"] = abs(C)
 
     return res
 
@@ -116,8 +130,27 @@ def Probabilities(matrix: np.ndarray) -> tuple:
     """
     pX = matrix.sum(axis=-1)
     pY = matrix.sum(axis=0)
+    m = len(matrix)
+
+    for i in range(m):
+        pX[i] = GeometricFormula(pX[i], i)
+        pY[i] = GeometricFormula(pY[i], i)
 
     return (pX, pY)
+
+
+def GeometricFormula(p: float, n: int) -> float:
+    """
+    Формула геометричного розподілення 
+
+    @param p Вірогідність
+    @param n Індекс
+
+    @return Значення
+    """
+    q = 1 - p
+
+    return p*q**(n-1)
 
 
 def ShowProb(prob_a: np.ndarray, prob_b: np.ndarray) -> None:
@@ -129,12 +162,23 @@ def ShowProb(prob_a: np.ndarray, prob_b: np.ndarray) -> None:
     string_a = "Первинний алфавіт\n"
     string_b = "Вторинний алфавіт\n"
 
+    a = 0
+    b = 0
+
     for i in range(1, m+1):
         string_a += "p(a%s) = %f\n" % (i, prob_a[i-1])
         string_b += "p(b%s) = %f\n" % (i, prob_b[i-1])
+
+        a += prob_a[i-1]
+        b += prob_b[i-1]
     
     print(string_a)
+    print("Totally: ", a)
+    print()
+
     print(string_b)
+    print("Totally: ", b)
+    print()
 
 
 def InfoAmount_Hartli(N: int) -> float:
