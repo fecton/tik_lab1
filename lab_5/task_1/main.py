@@ -1,3 +1,5 @@
+from huffman import *
+
 text = ""
 
 

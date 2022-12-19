@@ -68,7 +68,7 @@ class HuffmanTree:
     def BuildNodes2(self, inputProbabilities: dict = {}):
         self.Frequencies = inputProbabilities
 
-        self.nodes = {}
+        self.nodes = []
         self.indexAddName = 0
 
         for k,v in self.Frequencies:
@@ -126,16 +126,11 @@ class HuffmanTree:
                 if(current.Left != None):
                     current = current.Left
 
-            if IsLeaf(current):
+            if (current.Left == None and current.Right == None):
                 decoded += current["symbol"]
                 current = self.Root
 
         return decoded
-
-
-def IsLeaf(node: Node):
-    return (node.Left == None and node.Right == None)
-
 
 
 
