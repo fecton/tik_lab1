@@ -6,6 +6,8 @@ class Node:
         self.Left       = Left
         self.AddName    = addName
 
+    def __str__(self) -> str:
+        return "symbol: {0}, frequency: {1}, right: {2}, left: {3}, addname: {4}".format(self.symbol, self.frequency, self.Right, self.Left, self.AddName)
 
     def Traverse(self, symbol: str = "", data: list = []):
         if(self.Right == None and self.Left == None):
@@ -14,8 +16,9 @@ class Node:
             else:
                 return None
         else:
-            left = []
+            left  = []
             right = []
+
             if(self.Left != None):
                 leftPath = []
                 leftPath += data
@@ -30,7 +33,7 @@ class Node:
 
                 right = self.Right.Traverse(symbol, rightPath)
             
-            if(left != []):
+            if(left != None):
                 return left
             else:
                 return right
@@ -56,12 +59,13 @@ class HuffmanTree:
         self.indexAddName = 0
 
         self.Frequencies = {k:v for k,v in sorted(self.Frequencies.items(), key=lambda item: item[1], reverse=True)}
-        print("Build nodes")
+        tmp = "Build nodes\n"
         for k,v in self.Frequencies.items():
-            tmp += k + v
-            self.nodes.append({"symbol": k, "frequency": v, "addName": "x"+str(self.indexAddName)})
+            tmp += "{0} - {1}\n".format(k, str(v)) + "\n"
+            # self.nodes.append({"symbol": k, "frequency": v, "addName": "x"+str(self.indexAddName)})
+            self.nodes.append(Node(k, v, None, None, "x"+str(self.indexAddName)))
             self.indexAddName += 1
-        print(tmp)
+        # print(tmp)
         return self.Frequencies
     
 
@@ -72,7 +76,8 @@ class HuffmanTree:
         self.indexAddName = 0
 
         for k,v in self.Frequencies:
-            self.nodes.append({"symbol": k, "frequency": v, "addName": "x"+str(self.indexAddName)})
+            # self.nodes.append({"symbol": k, "frequency": v, "addName": "x"+str(self.indexAddName)})
+            self.nodes.append(Node(k,v,None,None,"x"+str(self.indexAddName)))
             self.indexAddName += 1
         
         return self.Frequencies
@@ -80,9 +85,16 @@ class HuffmanTree:
 
     def BuildHuffmanTree(self):
         while len(self.nodes) > 1:
-            orderedNodes = sorted(self.nodes, key=lambda item: item["addName"], reverse=True)
-            if(len(orderedNodes) > 2):
+            orderedNodes = sorted(self.nodes, key=lambda item: item.AddName, reverse=True)
+            if(len(orderedNodes) >= 2):
                 taken = orderedNodes[:2]
+                # parent = {
+                #     "symbol": "!",
+                #     "frequency": taken[0]["frequency"] + taken[1]["frequency"],
+                #     "left": taken[0],
+                #     "right": taken[1],
+                #     "addName": "x"+str(self.indexAddName)
+                # }
                 parent = Node(
                     symbol="!",
                     frequency=taken[0].frequency + taken[1].frequency,
@@ -90,15 +102,24 @@ class HuffmanTree:
                     Right = taken[1],
                     addName="x"+str(self.indexAddName)
                 )
-                self.nodes.remove(taken[0])
-                self.nodes.remove(taken[1])
+                # self.nodes.remove(taken[0])
+                # self.nodes.remove(taken[1])
                 self.nodes.append(parent)
-            self.Root = self.nodes.FirsOrDefault()
+                self.nodes.pop(0)
+                self.nodes.pop(0)
+                # from pprint import pprint
+                # pprint([str(x) for x in self.nodes])
+            
+            if self.nodes[0]:
+                self.Root = self.nodes[0]
+            else:
+                self.Root = 0
         
         huffmanCodesTable = {}
         tmp = "Frequencies:\n"
-        for k,v in self.Frequencies:
+        for k,v in self.Frequencies.items():
             tmp += "key: {0} | value: {1}\n".format(k,v)
+        # print(tmp)
         
         for k in self.Frequencies.keys():
             huffmanCodesTable[k] = self.Root.Traverse(k, [])
@@ -131,9 +152,6 @@ class HuffmanTree:
                 current = self.Root
 
         return decoded
-
-
-
 
 
 

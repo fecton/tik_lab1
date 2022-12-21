@@ -36,14 +36,19 @@ def GenMatrix_Random(m: int) -> np.ndarray:
     return matrix
 
 
-def ShowMatrix(matrix: np.ndarray, m: int):
+def ShowMatrix(matrix: np.ndarray, m: int, showIndexes: bool = False):
     """
     Виводить матрицю
     """
     print("\tMATRIX")
-    print("\t"+"\t".join([str(x) for x in range(1,m+1)]))
-    for i in range(m):
-        print("%d\t" % (i+1) +"\t".join([str(matrix[i][x]) for x in range(m)]))
+    if showIndexes:
+        print("\t"+"\t".join([str(x) for x in range(1,m+1)]))
+        for i in range(m):
+            print("%d\t" % (i+1) +"\t".join([str(matrix[i][x]) for x in range(m)]))
+    else:
+        for i in range(m):
+            print("\t".join([str(matrix[i][x]) for x in range(m)]))
+
     print()
 
 

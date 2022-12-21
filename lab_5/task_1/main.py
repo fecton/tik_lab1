@@ -1,29 +1,30 @@
-from huffman import *
-
-text = ""
-
-
-def table1():
-    header = "Алфавит источника\t\tОбозначения кодовых слов\t\tВероятность, Р\t\tКод Хафмена\t\tКол-во символов"
-
-    hf = HuffmanTree()
-    
-
-
-def table2():
-    raise NotImplementedError
-
-def table3():
-    raise NotImplementedError
-
-def table4():
-    raise NotImplementedError
-
-def table5():
-    raise NotImplementedError
-
-
+from tables import *
 
 # text = input("Enter text : ")
 text = "p kpoferopk opgpo eokgkeog pepkog eog"
 
+
+# TABLE 1
+# ===================================
+Table1(text)
+# ===================================
+
+# TABLE 2
+# ===================================
+Table2(text)
+# ===================================
+
+# TABLE 3
+# ===================================
+Table3(text)
+# ===================================
+
+# TABLE 4
+# ===================================
+Table4(text)
+# ===================================
+
+# TABLE 5
+# ===================================
+
+# ===================================
