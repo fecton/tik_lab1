@@ -54,7 +54,7 @@ class Text:
 
         f = open("splited.txt", "w", encoding="utf-8")
         for s in self.splitedStrings:
-            f.write(s)
+            f.write(s+"\n")
         f.close()
         print("Splited strings: COMPLETED\nCheck splited.txt", end="\n"*2)
 
